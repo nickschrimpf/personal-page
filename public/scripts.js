@@ -1,10 +1,11 @@
 const html = document.documentElement
-
+const logo = document.getElementById('star-burst')
 const dynamicTitleOne = document.querySelector('.dynamic-title__description');
 const dynamicTitleTwo = document.querySelector('.dynamic-title__second-line').firstElementChild;
 const curserOne = document.querySelector('.dynamic-title__curser-one');
 const curserTwo = document.querySelector('.dynamic-title__curser-two');
 
+console.log(logo)
 const viewHeight = window.innerHeight;
 const viewWidth = window.innerWidth;
 
@@ -167,6 +168,38 @@ function rotateSkillCards(){
   }
 }
 
+// PROJECTS
+function onProjectinView(scrollTop){
+  const projectPictures = document.querySelectorAll('.project--picture');
+  const projectDescriptions = document.querySelectorAll('.project--description');
+  
+  const projectsInViewPort = viewHeight + (viewHeight*.75);
+  const projectSectionTop = viewHeight * 2;
+  const projectSectionBottom = viewHeight * 3;
+  const scrolledProjectsPercent = (scrollTop - projectSectionTop)/ viewHeight; 
+  const projectScrollValue = scrolledProjectsPercent * viewHeight
+  
+  
+  if(scrollTop > projectsInViewPort && scrollTop < projectSectionBottom){
+    if(projectScrollValue > -90 && projectScrollValue < 100){
+      projectPictures.forEach((e)=> {
+        e.style.transform =`translate3d(0px,${projectScrollValue}px,0px)`;
+        e.style.opacity  = 1;
+      });
+      projectDescriptions.forEach((e)=>{
+        e.style.transform = `rotate3d(0,1,0,${projectScrollValue}deg)`
+        e.style.opacity  = 1;
+      });
+    }else{
+      projectPictures.forEach((e)=> {
+        e.style.opacity  = 0;
+      })
+      projectDescriptions.forEach((e)=>{
+        e.style.opacity = 0;
+      })
+    };
+  };
+}
 // WORK HISTORY
 function workHistorySideScroll(scrollTop){
   const titles = document.getElementById('titles');// job history titles we move left as the visitor scrolls
@@ -279,5 +312,6 @@ window.addEventListener('scroll',() => {
     },2500)
   };
   showSkillsParagraph(scrollTop);
+  onProjectinView(scrollTop)
   workHistorySideScroll(scrollTop);
-});
+})

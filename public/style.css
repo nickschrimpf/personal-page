@@ -7,8 +7,6 @@
 :root{
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
-    background-color: #d9d6d2;
-    color:#242526;
     height: 500vh;
     scrollbar-width: none;
     --blackSub:#242526;
@@ -18,22 +16,48 @@
     --darkBlue:#2793f2;
     --intro:48px;
     --name:52px;
-    --dynamicTitle:42px;
+    --dynamicTitle:36px;
     --smallest:26px;
     --title:42px;
     --tabs:38px;
+    background-color:var(--surface);
+    color:var(--blackSub);
+    
+    overflow-x: hidden;
+    
 }
-.body{
+body{
     scroll-behavior: auto;
     overflow: visible;
+    background-image: radial-gradient(rgb(217, 214, 210),rgba(36, 37, 38,.3));
+    
+    
+}
+.bg-topography{
+    background-image: url("./assets/topography.png");
+    position: absolute;
+    top: 0;
+    bottom: -550vh;
+    left: 0;
+    right: 0;
+    opacity: .7;
+    z-index: -1;
 }
 .logo{
-    font-size: var(--intro);
-    font-weight: 100;
     position: absolute;
-    top:8px;
-    left:8px;
 }
+
+.logo svg{
+    height:100px;
+    width:100px;
+}
+
+#star-burst{
+    transform: rotate(1turn);
+    transition: 2s ease-in 2s;
+    transition-duration: infinite;
+}
+
 .top-contact{
     font-size: var(--smallest);
     font-weight: 100;
@@ -133,6 +157,7 @@
     align-content: center;
     justify-content: center;
     opacity: 0;
+    gap:2px;
 }
 .icon{
     display: flex;
@@ -145,7 +170,6 @@
 .icon img{
     max-width: 33vw;
     max-height: 33vw;
-    /* align-self: center; */
 }
 .hero-cards__top{
     width:100%;
@@ -193,15 +217,13 @@
 }
 .project--title{
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 .project--title span{
-    font-size: var(--title);
+    font-size: 36px;
     font-weight: 500;
-    margin-right: .5rem;
-    margin-left:2rem;
 }
-.project--title img{
+.project--tools img{
     height: 35px;
     margin-right: 8px;
     margin-top: .5rem;
@@ -228,22 +250,24 @@
     align-self: center;
     transform-style: preserve-3d;
     box-shadow: 1px 0px 4px rgba(0,0,0,0.2);
+    transition: all .3s ease-in;
+    opacity: 0;
 }
 .project--picture:first-child{
-    transform: translate3d(-2%,0%,0px);
+    transition: all .3s ease-in;
 }
 .project--picture:last-child{
     background-color: var(--orange);
-    transform: translate3d(2%,-90%,15px);
 }
 .project--picture:first-child:hover{
-    transform: translate3d(2%,0%,25px);
-    transition: tranform .5s ease-in;
     z-index:100;
 }
 .project--description{
     width: 50vw;
     margin-right: 8px;
+    transition: all .3s ease-in;
+    transform-style: preserve-3d;
+    opacity: 0;
 }
 /* Work history */
 .work-history{
@@ -377,5 +401,6 @@
         width: 75vw;
         margin-left: auto;
         margin-right: auto;
+        gap:16px;
     }
 }
