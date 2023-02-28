@@ -22,16 +22,12 @@
     --tabs:38px;
     background-color:var(--surface);
     color:var(--blackSub);
-    
     overflow-x: hidden;
-    
 }
 body{
     scroll-behavior: auto;
     overflow: visible;
     background-image: radial-gradient(rgb(217, 214, 210),rgba(36, 37, 38,.3));
-    
-    
 }
 .bg-topography{
     background-image: url("./assets/topography.png");
@@ -46,7 +42,6 @@ body{
 .logo{
     position: absolute;
 }
-
 .logo svg{
     height:100px;
     width:100px;
@@ -292,7 +287,6 @@ body{
     cursor: pointer;
     list-style: none;
     font-size: var(--tabs);
-    line-height: 1.5;
     letter-spacing: -1px;
     margin-right: 2rem;
     position: relative;
@@ -310,7 +304,13 @@ body{
     position: absolute;
     transition: opacity .3s;
     opacity: 0;
-    padding:16px;
+    padding-left: 8px;
+}
+
+.work-details--list li{
+    list-style: none;
+    padding-left: 1rem;
+    margin-bottom: .25rem;
 }
 .work-details__description--last{
     font-weight: 900;

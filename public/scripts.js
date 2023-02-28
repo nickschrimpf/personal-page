@@ -43,7 +43,6 @@ async function deleteSentence(eleRef) {
 async function continuedTyping(){
   let i = 0;
   while(true){
-   
     curserOne.style.display = 'inline-block';
     await typeDescription(dynamicTitleOneArray[i],dynamicTitleOne);
           curserOne.style.display = 'none'
@@ -144,7 +143,6 @@ function rotateSkillCards(){
   })
   if(htlmCardAnimaton.finished){
     const icons = document.getElementsByClassName('icon');
-   
       icons[0].style.opacity = 1;
       icons[0].style.transition = 'opacity 1s 2.5s'
 
@@ -162,9 +160,6 @@ function rotateSkillCards(){
 
       icons[5].style.opacity = 1;
       icons[5].style.transition = 'opacity 1s 2.75s'
-    
-    
-    
   }
 }
 
@@ -274,6 +269,7 @@ function hideShowDescriptions(index,elementScrollPercent){
     return;
   }
 };
+
 function hideShowLine(index,elementScrollPercent){
   const line = document.querySelector('.line');
   if(index % 2 !== 0){
