@@ -8,6 +8,7 @@
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
     height: 500vh;
+    overflow-x: hidden;
     scrollbar-width: none;
     --blackSub:#242526;
     --surface:#d9d6d2;
@@ -22,63 +23,73 @@
     --tabs:38px;
     background-color:var(--surface);
     color:var(--blackSub);
-    overflow-x: hidden;
-}
-body{
-    scroll-behavior: auto;
-    overflow: visible;
-    background-image: radial-gradient(rgb(217, 214, 210),rgba(36, 37, 38,.3));
+  
 }
 .bg-topography{
-    background-image: url("./assets/topography.png");
+    background-image:radial-gradient(rgb(217, 214, 210),rgba(36, 37, 38,.3)), url("./assets/topography.png");
     position: absolute;
-    top: 0;
+    top: -100vh;
     bottom: -550vh;
     left: 0;
     right: 0;
     opacity: .7;
     z-index: -1;
 }
-.logo{
-    position: absolute;
-}
 .logo svg{
-    height:100px;
-    width:100px;
+    height:150px;
+    width:150px;
 }
-
-#star-burst{
-    transform: rotate(1turn);
-    transition: 2s ease-in 2s;
-    transition-duration: infinite;
+.nav{
+    display:flex;
+    justify-content: space-between;
+    height: 25vh;
 }
-
-.top-contact{
-    font-size: var(--smallest);
-    font-weight: 100;
-    position: absolute;
-    top:24px;
-    right:16px;
+.legend{
+    background-color:rgba(255, 255, 255,.5);
+    border-color: var(--orange);
+    display: flex;
+    flex-direction: column;
+    border:2px solid var(--orange);
+    margin-top: .5rem;
+    margin-right: .5rem;
+    height: fit-content;
+}
+.legend ul{
+    list-style: none;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: flex-end;
+}
+.legned li{
+    display:flex;
+    justify-items: center;
+}
+.legend img{
+    height: 25px;
     cursor: pointer;
 }
-.top-contact:hover{
-    color: white;
-    transform: scale(1.2);
-    font-weight: 300;
-    transition: transform .3s ease-in;
+.intro-Section{
+    height: 75vh;
 }
 .intro{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     justify-content: center;
     line-height: 1;
+    height: 65vh;
 }
 .intro__greeting{
     font-size: var(--intro);
     animation: 1s greeting;
     height: max-content;
+}
+.intro__location{
+    margin-top:1rem;
+    font-size: xx-large;
+    font-weight:300;
 }
 .intro__name{
     font-size: var(--name);
@@ -113,21 +124,14 @@ body{
     animation: blink .6s linear infinite alternate;
     display: none;
 }
-.dynamic-title__curser-two{
-    display: inline-block;
-    width: 2px;
-    height: var(--dynamicTitle);
-    background-color:var(--blackSub);
-    margin-left: 8px;
-    animation: blink .6s linear infinite alternate;
-    display: none;
+.homeSvg{
+    height: 10vh;
+    padding-bottom: .3rem;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 2rem;
 }
-.dynamic-title__second-line{ 
-  font-weight: 300;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
+
 /* SKILLS */
 .skills{
     height: 100vh;
@@ -146,8 +150,8 @@ body{
 .hero-cards{
     margin-top: 8px;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 33% 33% 33%;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 30% 30% 30%;
     height: 50vh;
     align-content: center;
     justify-content: center;
@@ -167,36 +171,39 @@ body{
     max-height: 33vw;
 }
 .hero-cards__top{
+    border-radius: 99%;
     width:100%;
     height:100%;
     display:flex;
     align-items: center;
     justify-content: center;
-    font-size:var(--title);
+    font-size:var(--smallest);
     font-weight: 500;
     background-color: var(--lightBlue);
     color:var(--surface);
 }
 .hero-cards__middle{
+    border-radius: 99%;
     height: 100%;
     width: 100%;
     display:flex;
     align-self: center;
     align-items: center;
     justify-content: center;
-    font-size: var(--title);
+    font-size: var(--smallest);
     font-weight: 500;
     background-color:var(--orange);
     color:var(--surface);
 }
 .hero-cards__bottom{
+    border-radius: 99%;
     width:100%;
     height:100%;
     display:flex;
     align-self: flex-end;
     align-items: center;
     justify-content: center;
-    font-size: var(--title);
+    font-size: var(--smallest);
     font-weight: 500;
     background-color: var(--lightBlue);
     color:var(--surface);

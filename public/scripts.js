@@ -1,76 +1,124 @@
 const html = document.documentElement
-const logo = document.getElementById('star-burst')
-const dynamicTitleOne = document.querySelector('.dynamic-title__description');
-const dynamicTitleTwo = document.querySelector('.dynamic-title__second-line').firstElementChild;
-const curserOne = document.querySelector('.dynamic-title__curser-one');
-const curserTwo = document.querySelector('.dynamic-title__curser-two');
+const viewHeight = window.innerHeight
+const viewWidth = window.innerWidth
 
-console.log(logo)
-const viewHeight = window.innerHeight;
-const viewWidth = window.innerWidth;
-
-let cardsVisable = false;
-let intoInView = true;
 let skillStillHidden = true;
 
-const dynamicTitleOneArray = [
-  '....hmmm','Customer Focused','creative','critical', 'taco','packer'
-];
-const dynamicTitleTwoArray = [
-  'this is so hard','Software Developer','problem solver','thinker','lover','fan'
-]
+
+class HtmlDocument{
+  constructor(){
+    this.element = document.documentElement;
+    this.viewHeight = window.innerHeight;
+    this.viewWidth = window.innerWidth;
+  }
+}
+//NAV
+const navIcons = document.querySelectorAll('.nav-icon');
+for(let i = 0;i < navIcons.length;i++){
+  navIcons[i].addEventListener('click',()=> {
+      window.scrollTo(0,window.innerHeight * (i+1))
+    });
+};
+
 
 // INTRO
-async function typeDescription(description,ele,delay = 200){
-  const letters = description.split("");
-  let i = 0;
-  while(i < letters.length) {
-    await createWait(delay);
-    (ele).append(letters[i]);
-    i++
+const dynamicTitleOneArray = [
+  'Adventurer',
+  'Problem Solver',
+  'Software Engineer',
+  'UI/UX Designer',
+  'Graphic Designer',
+  'Husband',
+  'Cat Dad',
+  'Taco Lover',
+  'Packer Fan'
+];
+
+class TypingEffect {
+  constructor(textElement,delay){
+    this.textElement = textElement;
+    this.delay = delay;
+    this.letters = [];
+    this.letterIndex = 0;
+    this.isDeleting = false;
+    this.curserOne = document.querySelector('.dynamic-title__curser-one');
   }
-  return;
-}
-async function deleteSentence(eleRef) {
-  const sentence = (eleRef).textContent;
-  const letters = sentence.split("");
-  while(letters.length > 0) {
-    await createWait(100);
-    letters.pop();
-    eleRef.textContent = letters.join("");
+
+  setText(text){  
+    this.letters = text.split("");
+    this.textElement.textContent= "";
+  }
+
+  async type(dynamicTitle) {
+    const currentText = this.letters.slice(0, this.letterIndex +1).join("");
+    this.textElement.textContent = currentText;
+    this.curserOne.style.display = 'inline-block';
+
+
+    if(!this.isDeleting){
+      this.letterIndex++;
+    }
+    
+  
+    if (this.letterIndex === this.letters.length) {
+      this.isDeleting = true;
+      await createWait(this.delay * 3);
+    }
+
+    if (this.letterIndex === 0 && this.isDeleting) {
+        this.isDeleting = false;
+        this.curserOne.style.display = 'none'
+        dynamicTitle.currentIndex = (dynamicTitle.currentIndex + 1) % dynamicTitle.strings.length
+    }
+
+    const nextDelay = this.isDeleting ? this.delay / 2 : this.delay;
+    await createWait(nextDelay);
+    
+    if (this.isDeleting) {
+      this.textElement.textContent = currentText.slice(0, -1);
+      this.letterIndex--;
+    }
+
+    if (!this.isDeleting && this.letterIndex === this.letters.length) {
+      await createWait(this.delay * 3);
+      this.isDeleting = true;
+    }
   }
 }
-async function continuedTyping(){
-  let i = 0;
-  while(true){
-    curserOne.style.display = 'inline-block';
-    await typeDescription(dynamicTitleOneArray[i],dynamicTitleOne);
-          curserOne.style.display = 'none'
-    await createWait(dynamicTitleOneArray[i].length * 200);
-          curserTwo.style.display = 'inline-block'
-    await typeDescription(dynamicTitleTwoArray[i],dynamicTitleTwo);
-          
-    await createWait(dynamicTitleTwoArray[i].length * 200);
-    await deleteSentence(dynamicTitleTwo)
-          curserTwo.style.display = 'none'
-    await createWait(dynamicTitleTwoArray[i].length * 100);
-    curserOne.style.display = 'inline-block';
-    await deleteSentence(dynamicTitleOne)
-    i++
-    if(i >= dynamicTitleOneArray.length){
-      i = 0;
-    };
-  };
-};
+
+class DynamicTitle{
+  constructor(titleElement,typist,strings){
+    this.titleElement = titleElement;
+    this.typist = typist; 
+    this.strings = strings;
+    this.currentIndex = 0;
+  }
+  
+  async typeLoop(){
+    while(true){
+      await this.typist.setText(this.strings[this.currentIndex])
+      await this.typist.type(this)
+    }
+  }
+}
 function createWait(ms){
-  return new Promise(resolve => setTimeout(resolve,ms))
+  return new Promise((resolve) => setTimeout(resolve,ms))
 }
 
 // SKILLS
+class SkillsSection{
+  constructor(){
+
+  }
+}
+
 function showSkillsParagraph(scrollTop){
   const skillsPargraph = document.querySelector('.skills__paragraph');
-
-  if(scrollTop > 425 && skillStillHidden === true){
+  if(scrollTop > viewHeight*.90 && skillStillHidden === true){
+    skillsCardsSlideIn();
+    setTimeout(()=>{
+      rotateSkillCards();
+    },2500)
     skillsPargraph.style.opacity = '1';
     skillsPargraph.style.transition = 'opcacity 2s ease-in'
     skillsPargraph.style.animation = 'skillsParagraphSlideUp 2s ease-in';
@@ -78,7 +126,6 @@ function showSkillsParagraph(scrollTop){
   }
 }
 function skillsCardsSlideIn(){
-  
   const heroCards = document.querySelector('.hero-cards');
   heroCardsAnimation = heroCards.animate([
       {
@@ -98,7 +145,7 @@ function skillsCardsSlideIn(){
 function rotateSkillCards(){
   const htmlCard = document.querySelector('.hero-cards__top');
   const cssCard = document.querySelector('.hero-cards__bottom');
- const cssCardAnimation = cssCard.animate([
+  cssCard.animate([
     {
       transform:'translateX(0%)',
     },
@@ -212,6 +259,8 @@ function workHistorySideScroll(scrollTop){
     fixWorkHistory(false);
   };
 };
+
+
 function showWorkHistoryTitles(scrollValue){
   const elWidth  = viewWidth * .80;
   const index = Math.floor(scrollValue/elWidth)
@@ -288,26 +337,46 @@ function hideShowLine(index,elementScrollPercent){
   };
 };
 
-window.addEventListener('load',() => {
-  console.log('loaded')
-  setTimeout(()=>{
-   continuedTyping();
-  },1500);
-});
-window.addEventListener('resize',()=>{
-  location.reload();
-});
 
-window.addEventListener('scroll',() => {
-  const scrollTop = html.scrollTop;
-  if(scrollTop >= viewHeight * .75 && cardsVisable === false){
-    skillsCardsSlideIn();
-    cardsVisable = true;
-    setTimeout(()=>{
-      rotateSkillCards();
-    },2500)
+
+class ScrollHandler{
+  constructor(htmlDoc){
+    this.html = htmlDoc;
   };
-  showSkillsParagraph(scrollTop);
-  onProjectinView(scrollTop)
-  workHistorySideScroll(scrollTop);
-})
+
+  handleScroll(){
+    const scrollTop = this.html.element.scrollTop;
+    showSkillsParagraph(scrollTop);
+    onProjectinView(scrollTop);
+    workHistorySideScroll(scrollTop);
+  };
+};
+
+
+class App{
+  static init(){
+    const htmlDoc = new HtmlDocument();
+    const scrollHandler = new ScrollHandler(htmlDoc);
+
+    window.addEventListener('scroll',() => {
+      scrollHandler.handleScroll()
+    });
+
+    window.addEventListener('resize',()=>{
+      window.scrollTo(0,0);
+      location.reload();
+    });
+
+    window.addEventListener('load',() => {
+        const dynamicTitleElement = document.querySelector('.dynamic-title__description');
+      setTimeout(()=>{
+        const typist = new TypingEffect(dynamicTitleElement, 150);
+        const dynamicTitle = new DynamicTitle(dynamicTitleElement, typist, dynamicTitleOneArray);
+        dynamicTitle.typeLoop();
+      },1500);
+    });
+
+  };
+};
+
+App.init()
