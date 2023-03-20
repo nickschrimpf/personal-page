@@ -1,20 +1,42 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border" translucent="true">
   <ion-toolbar>
     <ion-title>
+      <!-- <ion-img src="assets/icon/favicon.png" class="logo"></ion-img> -->
       Nick Schrimpf
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Nick Schrimpf</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content
+[scrollEvents]="true"
+(ionScrollStart)="handleScrollStart()"
+(ionScroll)="handleScroll($any($event))"
+(ionScrollEnd)="handleScrollEnd()"
+[fullscreen]="true">
+
+
+
+  <ion-fab slot="fixed" vertical="top" horizontal="end"[edge]="true">
+    <ion-fab-button>
+      <ion-icon name="compass-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="scrollTo('home')">
+        <ion-icon src="./assets/navigation-icons/Tent.svg"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="scrollTo('tools')">
+        <ion-icon src="./assets/navigation-icons/Wrench.svg"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="scrollTo('myWork')">
+        <ion-icon src="./assets/navigation-icons/Path.svg"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
   <ion-row class="ion-align-items-center">
     <ion-col>
-      <div class="intro">
+
+      <div #home class="intro">
         <span #greeting>Hi, I'm</span>
         <h1>Nick Schrimpf</h1>
         <span>a Colorado-Based...</span>
@@ -24,8 +46,12 @@
       </div>
     </ion-col>
   </ion-row>
-  <app-tools></app-tools>
-  <app-my-work></app-my-work>
+  <div class="ion-no-padding" class="home">
+    <ion-img  src="../../assets/navigation-icons/Tent.svg"></ion-img>
+  </div>
+
+  <app-tools #tools></app-tools>
+  <app-my-work #myWork></app-my-work>
 </ion-content>
 
 
