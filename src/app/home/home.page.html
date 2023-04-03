@@ -14,8 +14,6 @@
 (ionScrollEnd)="handleScrollEnd()"
 [fullscreen]="true">
 
-
-
   <ion-fab slot="fixed" vertical="top" horizontal="end"[edge]="true">
     <ion-fab-button>
       <ion-icon name="compass-outline"></ion-icon>
@@ -45,15 +43,16 @@
         </ion-row>
       </div>
     </ion-col>
+     <!-- <div class="ion-no-padding" class="home">
+      <ion-img  src="../../assets/navigation-icons/Tent.svg"></ion-img>
+    </div> -->
   </ion-row>
-  <div class="ion-no-padding" class="home">
-    <ion-img  src="../../assets/navigation-icons/Tent.svg"></ion-img>
-  </div>
 
   <app-tools #tools></app-tools>
   <app-my-work #myWork></app-my-work>
-</ion-content>
+  <app-work-history [scrollSubject]="scrollSubject" #workHistory></app-work-history>
 
+</ion-content>
 
 
 
