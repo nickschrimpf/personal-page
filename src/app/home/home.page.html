@@ -14,26 +14,28 @@
 (ionScrollEnd)="handleScrollEnd()"
 [fullscreen]="true">
 
-  <ion-fab slot="fixed" vertical="top" horizontal="end"[edge]="true">
+  <ion-fab #nav slot="fixed" vertical="top" horizontal="end" [edge]="true">
     <ion-fab-button>
       <ion-icon name="compass-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button (click)="scrollTo('home')">
+      <ion-fab-button *ngIf="activePage !== 'home'"  (click)="scrollTo('home')">
         <ion-icon src="./assets/navigation-icons/Tent.svg"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="scrollTo('tools')">
+      <ion-fab-button *ngIf="activePage !== 'tools'" (click)="scrollTo('tools')">
         <ion-icon src="./assets/navigation-icons/Wrench.svg"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="scrollTo('myWork')">
+      <ion-fab-button *ngIf="activePage !== 'myWork'" (click)="scrollTo('myWork')">
         <ion-icon src="./assets/navigation-icons/Path.svg"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="activePage !== 'work-history'" (click)="scrollTo('work-history')">
+        <ion-icon src="./assets/navigation-icons/Map.svg"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 
   <ion-row class="ion-align-items-center">
     <ion-col>
-
       <div #home class="intro">
         <span #greeting>Hi, I'm</span>
         <h1>Nick Schrimpf</h1>
@@ -43,14 +45,15 @@
         </ion-row>
       </div>
     </ion-col>
-     <!-- <div class="ion-no-padding" class="home">
-      <ion-img  src="../../assets/navigation-icons/Tent.svg"></ion-img>
-    </div> -->
   </ion-row>
-
+  <ion-row #pageIcon class="page-icon">
+    <ion-col>
+      <ion-img [src]="pageIconURL"></ion-img>
+    </ion-col>
+  </ion-row>
   <app-tools #tools></app-tools>
   <app-my-work #myWork></app-my-work>
-  <app-work-history [scrollSubject]="scrollSubject" #workHistory></app-work-history>
+  <app-work-history #workHistory></app-work-history>
 
 </ion-content>
 
